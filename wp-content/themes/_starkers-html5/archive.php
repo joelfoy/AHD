@@ -34,17 +34,22 @@ get_header();
 			</ul>
 		</nav>
 		<?php endif; ?>
+		
+		<h2><?php single_cat_title('Currently browsing '); ?></h2>
 
 		<?php while (have_posts()) : the_post(); ?>
 			
-		<article <?php post_class() ?>>
-		
+		<article <?php post_class('category-preview') ?>>
+			
+			<?php if ( has_post_thumbnail()) { // Logo Image ?>
+			<div class="product-logo">
+				<?php the_post_thumbnail('logo'); ?>
+			</div>
+			<?php } ?>
+			
 			<h3 id="post-<?php the_ID(); ?>"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
-			<time datetime="<?php the_time('Y-m-d') ?>" pubdate><?php the_time('l, F jS, Y') ?></time>
 			
-			<?php the_content() ?>
-			
-			<footer><?php the_tags('Tags: ', ', ', '<br />'); ?> Posted in <?php the_category(', ') ?> | <?php edit_post_link('Edit', '', ' | '); ?>  <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?></footer>
+			<?php the_excerpt() //The Excerpt ?>
 		
 		</article>
 
@@ -76,6 +81,6 @@ get_header();
 	endif;
 ?>
 
-<?php get_sidebar(); ?>
+<?php // get_sidebar('productlist'); ?>
 
 <?php get_footer(); ?>

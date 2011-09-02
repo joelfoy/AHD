@@ -40,7 +40,25 @@ $(window).load(function() {
 });
 
 
+$(document).ready(function() {
+	// When the page loads
+	$(".tab-content").hide(); //Hide ALL content
+	$("ul.tabs li:first").addClass("active").show(); // Activate the first tab 
+	$(".tab-content:first").show(); // Show first tab content
+	
+	// Click Event
+	$("ul.tabs li").click(function() {
+		$("ul.tabs li").removeClass("active"); // Remove ACTIVE class from ALL tabs
+		$(this).addClass("active"); // Add ACTIVE class to the clicked tab
+		$(".tab-content").hide(); // Hide ALL tabs content
+		
+		var activeTab = $(this).find("a").attr("href");
+		$(activeTab).fadeIn(); // Fade in the NEW active tab
+		return false;
+	
+	});
 
+});
 
 
 

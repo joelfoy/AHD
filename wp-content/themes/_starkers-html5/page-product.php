@@ -6,7 +6,7 @@ Template Name: Products
 
 <?php get_header(); ?>
 <article <?php post_class() ?> id="post-<?php the_ID(); ?>">
-<h2>This is the Products Template</h2>
+<h2>What type of product are you looking for?</h2>
 <?php if(is_page('products'))	{ ?>
 	<?php 
 	// Get Products by Supplement Type
@@ -22,6 +22,8 @@ Template Name: Products
 		<?php wp_list_categories($args); ?>
 	</ul>
 </article>	
+<div class="clearfix"></div>
+
 <?php } // End Supplement List ?>
 
 		

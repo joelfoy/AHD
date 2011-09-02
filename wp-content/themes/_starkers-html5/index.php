@@ -17,6 +17,7 @@ get_header(); ?>
 			
 			<?php the_content('Read the rest of this entry &raquo;'); ?>
 			
+			
 			<a class="lightbox" href="<?php echo bloginfo('url')?>/wp-content/images/1_b.jpg"><img class="image" src="<?php echo bloginfo('url')?>/wp-content/images/1_s.jpg" /></a>
 			
 			<footer><?php the_tags('Tags: ', ', ', '<br />'); ?> Posted in <?php the_category(', ') ?> | <?php edit_post_link('Edit', '', ' | '); ?>  <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?></footer>

@@ -5,6 +5,8 @@
  */
  
  // FEATURED IMAGE SUPPORT
+ ////////////////////////////////////////////////////////////
+
 if ( function_exists( 'add_theme_support' ) ) {  
     add_theme_support( 'post-thumbnails' );  
     set_post_thumbnail_size( 250, 250, true ); // Normal post thumbnails  
@@ -12,11 +14,14 @@ if ( function_exists( 'add_theme_support' ) ) {
     add_image_size( 'half-pic', 460, 400); // Half Column Size
     add_image_size( 'third-pic', 294, 120, true ); // Third Column Size
     add_image_size( 'quarter-pic', 211, 100, true); // Quarter Column Size
+    add_image_size( 'logo', 265, 125, false); // Logo Size
 }
 
-function cs_image( $atts, );
 
 automatic_feed_links();
+
+// Sidebar Registration
+////////////////////////////////////////////////////////////
 
 if ( function_exists('register_sidebar') )
 register_sidebar(array('name'=>'blog-sidebar',
@@ -45,6 +50,8 @@ register_sidebar(array('name'=>'health-category',
 ));
 
 // Custom Navigation
+////////////////////////////////////////////////////////////
+
 add_action('init', 'register_custom_menu');
 
 add_theme_support('menus');
@@ -84,15 +91,18 @@ function show_posts_nav() {
 
 
 // SHORTCODES
+////////////////////////////////////////////////////////////
 
 // Style Shortcodes
 // Paragraph Column Styles
 
+// One Quarter Width Column
 function cs_one_quarter( $atts, $content = null ) {
 	return '<div class="one-quarter-width">'.$content.'</div>'; 
 }
 add_shortcode('one_quarter','cs_one_quarter');
 
+// One Quarter Width Column - LAST
 function cs_one_quarter_last( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'space' => '',
@@ -105,11 +115,13 @@ function cs_one_quarter_last( $atts, $content = null ) {
 }
 add_shortcode('one_quarter_last','cs_one_quarter_last');
 
+// One Third Width Column 
 function cs_one_third( $atts, $content = null ) {
 	return '<div class="one-third-width">'.$content.'</div>';
 }
 add_shortcode('one_third','cs_one_third');
 
+// One Third Width Column - LAST
 function cs_one_third_last( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'space' => '',
@@ -122,11 +134,13 @@ function cs_one_third_last( $atts, $content = null ) {
 }
 add_shortcode('one_third_last','cs_one_third_last');
 
+// One Half Width Column
 function cs_one_half( $atts, $content = null ) {
 	return '<div class="one-half-width">'.$content.'</div>';
 }
 add_shortcode('one_half','cs_one_half');
 
+// One Half Width Column - LAST
 function cs_one_half_last( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'space' => '',
@@ -139,11 +153,13 @@ function cs_one_half_last( $atts, $content = null ) {
 }
 add_shortcode('one_half_last','cs_one_half_last');
 
+// Two Thirds Width Column
 function cs_two_thirds( $atts, $content = null ) {
 	return '<div class="two-thirds-width">'.$content.'</div>';
 }
 add_shortcode('two_thirds','cs_two_thirds');
 
+// Two Thirds Width Column - LAST
 function cs_two_thirds_last( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'space' => '',
@@ -156,11 +172,13 @@ function cs_two_thirds_last( $atts, $content = null ) {
 }
 add_shortcode('two_thirds_last','cs_two_thirds_last');
 
+// Three Quarter Width Column
 function cs_three_quarter( $atts, $content = null ) {
 	return '<div class="three-quarter-width">'.$content.'</div>';
 }
 add_shortcode('three_quarter','cs_three_quarter');
 
+// Three Quarter Width Column - LAST
 function cs_three_quarter_last( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'space' => '',
@@ -173,6 +191,7 @@ function cs_three_quarter_last( $atts, $content = null ) {
 }
 add_shortcode('three_quarter_last','cs_three_quarter_last');
 
+// Full Width Column
 function cs_full( $atts, $content = null) {
 	extract( shortcode_atts( array(
 			'space' => '',
@@ -185,10 +204,70 @@ function cs_full( $atts, $content = null) {
 }
 add_shortcode('full','cs_full');
 
+// Section Header or Separation 
 function cs_section_header( $atts, $content = null) {
-	return '<div class="section-header"><h2>'.$content.'</h2></div><hr>';
+	return '<div class="section-header"><span class="leaf-left"></span><h2>'.$content.'</h2><span class="leaf-right"></span></div><hr>';
 }
 add_shortcode('section_header','cs_section_header');
+
+// Custom Links Shortcodes
+////////////////////////////////////////////////////////////
+//permalink shortcut from Digging into Wordpress
+function permalink_thingy($atts) {
+extract(shortcode_atts(array(
+'id' => 1,
+'text' => "" // default value if none supplied
+), $atts));
+if ($text) {
+$url = get_permalink($id);
+return "<a href='$url'>$text</a>";
+} else {
+return get_permalink($id);
+}
+}
+add_shortcode('permalink', 'permalink_thingy');
+
+// See more button
+function see_more_button($atts) {
+extract(shortcode_atts(array(
+'id' => 1,
+'text' => "" // default value if none supplied
+), $atts));
+	$url = get_permalink($id);
+	if ($text) {
+		return "<a class='see-more-link' href='$url'>$text</a>";
+	} else {
+		return "<a class='see-more-link' href='$url'>See More</a>";	
+	}
+}
+add_shortcode('see_more','see_more_button');
+
+//my url for the website
+function my_url($atts, $content = null) {
+  return get_bloginfo('url'); 
+}
+add_shortcode("url", "my_url");  
+
+//template url 
+function my_template_url($atts, $content = null) {
+  return get_bloginfo('template_url'); 
+}
+add_shortcode("template_url", "my_template_url");  
+
+//images url
+function my_images_url($atts, $content = null) {
+  return get_bloginfo('url') . '/wp-content/images/'; 
+}
+add_shortcode("images_url", "my_images_url");
+
+//brochure url
+function my_brochures_url($atts, $content = null) {
+	return get_bloginfo('url') . '/wp-content/assets/brochures/';
+}
+add_shortcode("brochure_url", "my_brochure_url");
+
+////////////////////////////////////////////////////////////
+
 
 // This is the new comment markup - edit as you feel necessary
 function html5_comment($comment, $args, $depth) {
